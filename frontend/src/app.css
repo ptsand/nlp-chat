@@ -1,9 +1,11 @@
 /* Global styles */
+  /* 
 main {
-  margin: 0;
+margin: 0; 
   display: flex;
   min-height: 90vh;
 }
+*/
 
 .place-center {
   place-items: center;

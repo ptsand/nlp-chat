@@ -12,8 +12,8 @@
     onMount(()=>$activeRoute=$location.pathname);
     
 </script>
-<div use:registerFocus class="bg-dark w-100 text-white p-2 d-flex place-center">
-    <h2 class="mx-auto">Welcome {$user.username}</h2>
+<div use:registerFocus class="bg-dark w-100 text-white p-2 d-flex flex-column flex-grow-1">
+    <h2 class="m-auto">Welcome {$user.username}</h2>
 </div>
 
 {#if !$user.email_confirmed}

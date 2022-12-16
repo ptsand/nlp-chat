@@ -81,8 +81,8 @@
     
     socket.on("chat message", (msg) => {
         // console.log(msg);
-        let item = document.createElement('li');
-        item.className = "list-group-item list-group-item-dark";
+        let item = document.createElement('div');
+        item.className = "";
         item.textContent = msg;
         if (messages) messages.appendChild(item);
         // window.scrollTo(0, document.body.scrollHeight);
@@ -97,10 +97,25 @@
         socket.emit('chat message', message);
     }
 </script>
-<div class="bg-dark w-100 text-white p-2 d-flex flex-column px-md-5">
-    <h2 class="text-center">Chat lounge</h2>
-    <p>{JSON.stringify(chatUsers)}</p>
-    <ul class="list-group" bind:this={messages}></ul>
-    <input use:registerFocus bind:value={message} />
-    <button on:click={sendMessage}>Send</button>
+<div class="row gx-2 flex-nowrap flex-grow-1">
+<div class="col-lg-4 col-xl-3 d-none d-lg-block">
+<div class="bg-dark text-white h-100 p-2">
+    <h3 class="text-center">Users</h3>
+    <div>
+    {#each chatUsers as user}
+    <div class="text-center text-success fw-bold">{ user.username }</div>
+    {/each}
+    </div>
+</div>
+</div>
+<div class="col-lg-8, col-xl-9">
+<div class="bg-dark text-white p-2 d-flex flex-column px-md-5 h-100">
+    <h3 class="text-center">Chat lounge</h3>
+    <div class="flex-grow-1" bind:this={messages}></div>
+    <div class="d-flex input-group">
+        <input use:registerFocus bind:value={message} type="text" class="form-control bg-light border-0" placeholder="Enter message" aria-label="Enter message">
+        <button class="btn btn-success" type="button" on:click={sendMessage}>Send</button>
+    </div>
+</div>
+</div>
 </div>

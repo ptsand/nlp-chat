@@ -67,7 +67,7 @@ io.on("connection", (socket) => {
     let user = socket.request.user;     // the connected user
     for (let [id, socket] of io.of("/").sockets) {
         let user = socket.request.user;
-        if (!users.includes(user)) {
+        if (users.filter(u=>u.id===user.id).length < 1) {
             console.log("added user with id", user);
             users.push({
                 id: user.id,

@@ -57,7 +57,7 @@
       </div>
     </div>
   </nav>
-  <main>
+  <main class="flex-grow-1 d-flex flex-column">
     <PrivateRoute path="/" let:location let:registerFocus>
       <Home {registerFocus} />
     </PrivateRoute>
