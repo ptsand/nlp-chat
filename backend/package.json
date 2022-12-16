@@ -1,0 +1,31 @@
+{
+  "name": "backend",
+  "version": "0.9.0",
+  "description": "nlp-chat backend",
+  "main": "app.js",
+  "scripts": {
+    "init-db": "node ./database/init-db.js",
+    "dev": "nodemon app.js",
+    "test": "echo 'no tests implemented yet'"
+  },
+  "author": "Peter Sand",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "argon2": "^0.30.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "helmet": "^6.0.1",
+    "http": "^0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.8.0",
+    "socket.io": "^4.5.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
