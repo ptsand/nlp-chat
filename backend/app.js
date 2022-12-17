@@ -27,7 +27,9 @@ const io = new Server(server,  {
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
-app.use(helmet());                      // set security headers
+app.use(helmet());        // set security headers
+
+app.use(express.static("public"));
 
 // setup req rate limiting
 const generalLimiter = rateLimit({
@@ -94,7 +96,8 @@ io.on("connection", (socket) => {
 
     socket.on("chat message", (message) => {
         // console.log(data, socket.handshake.auth);
-        io.emit("chat message", `${socket.request.user.username}: ${message}`);
+        const msg = { sender: { id: user.id, username: user.username}, content: message };
+        io.emit("chat message", msg);
     });
 });
 

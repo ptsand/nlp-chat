@@ -45,7 +45,7 @@
     }
 </script>
 
-<div class="d-flex w-100 place-center">
+<div class="d-flex w-100 place-center flex-grow-1">
     <Sveltik {initialValues} {validate} {onSubmit} let:isSubmitting>
         <Form class="bg-light px-4 py-2 mx-auto text-center border" style="min-width: 30vw;">
             <h3 class="mb-3">Sign up</h3>
