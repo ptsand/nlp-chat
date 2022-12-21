@@ -91,7 +91,7 @@ io.on("connection", (socket) => {
         users = users.filter(u => u.id !== user.id);
         console.log("disconnect, users left:", users);
         // notify other clients
-        socket.broadcast.emit("user disconnected", user.id);
+        socket.broadcast.emit("user disconnected", user.username);
     });
 
     socket.on("chat message", (message) => {

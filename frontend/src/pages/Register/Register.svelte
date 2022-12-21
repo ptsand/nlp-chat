@@ -47,8 +47,8 @@
 
 <div class="d-flex w-100 place-center flex-grow-1">
     <Sveltik {initialValues} {validate} {onSubmit} let:isSubmitting>
-        <Form class="bg-light px-4 py-2 mx-auto text-center border" style="min-width: 30vw;">
-            <h3 class="mb-3">Sign up</h3>
+        <Form class="bg-dark px-4 py-2 mx-auto text-center" style="min-width: 30vw;">
+            <h3 class="mb-3 text-white">Register</h3>
             <div class="form-floating mb-3">
                 <Field class="form-control" id="username" type="text" name="username" />
                 <label for="username">Username</label>
@@ -64,7 +64,7 @@
                 <ErrorMessage name="email" as="div" />
             </div>
             <div>
-                <button class="btn btn-primary mb-2" type="submit" disabled={isSubmitting}>Submit</button>
+                <button class="btn btn-success mb-2" type="submit" disabled={isSubmitting}>Submit</button>
                 {#if isSubmitting}
                     <div>In progress...</div>
                 {:else if status.msg}

@@ -65,10 +65,10 @@
 
     });
     // when any user disconnects
-    socket.on("user disconnected", (user) => {
+    socket.on("user disconnected", (username) => {
         messages = msgWrap({
             sender: {id: 0, username: 'system'},
-            content: `${user.username} has left`
+            content: `${username} has left`
         });
         chatUsers = chatUsers.filter(u=>u.userID !== user.userID);
     });
