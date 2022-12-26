@@ -3,3 +3,17 @@
 .place-center {
   place-items: center;
 }
+
+.popover {
+  --bs-popover-max-width: 304px;
+}
+
+.popover-positive {
+  --bs-popover-bg: var(--bs-success);
+  --bs-popover-body-color: var(--bs-white)
+}
+
+.popover-negative {
+  --bs-popover-bg: var(--bs-danger);
+  --bs-popover-body-color: var(--bs-white)
+}

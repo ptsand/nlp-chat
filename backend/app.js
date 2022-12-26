@@ -63,6 +63,7 @@ io.use((socket, next)=>{ // wrap auth and add auth header
 });
 
 let users = [];   // keep users in memory
+let msgID = 0;
 
 // handle connections to socket
 io.on("connection", (socket) => {
@@ -96,7 +97,7 @@ io.on("connection", (socket) => {
 
     socket.on("chat message", (message) => {
         // console.log(data, socket.handshake.auth);
-        const msg = { sender: { id: user.id, username: user.username}, content: message };
+        const msg = { id: ++msgID, sender: { id: user.id, username: user.username}, content: message };
         io.emit("chat message", msg);
     });
 });

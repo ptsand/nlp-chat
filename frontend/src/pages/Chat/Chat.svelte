@@ -18,6 +18,7 @@
     onMount(()=>{
         $activeRoute=$location.pathname;
         messages = msgWrap({
+            id: 0,
             sender: chatUsers[0],
             content: "Welcome to the chat lounge, please click on any message to make me process it"
         });

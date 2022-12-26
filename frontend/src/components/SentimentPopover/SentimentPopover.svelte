@@ -13,12 +13,21 @@
             popoverEl.addEventListener('show.bs.popover', () =>
                 !processed && predictSentiment([msg.content]).then(s=>sentiment(s))
             );
+            popoverEl.addEventListener('inserted.bs.popover', () =>
+                processed && msg.sentimentClass && setColor(msg.sentimentClass)
+            );
         }
     });
+
+    const setColor = (sentimentClass)=>{
+        const [popoverEl] = document.getElementsByClassName(`msg-${msg.id}`);
+        popoverEl.classList.add(`popover-${sentimentClass}`);
+    }
 
     const sentiment = (sentiment)=>{
         const [s] = sentiment;
         processed = true;   // do not trigger prediction on setContent
+        msg.sentimentClass = s.category.toLowerCase(); // choose colors based on sentiment
         popover.setContent({
             '.popover-header': 'SentimentAnalyzerBot',
             '.popover-body': `${s.category} (confidence: ${s.confidence})`
@@ -28,7 +37,7 @@
 
 <button type="button" class="btn btn-{msg.color} rounded-pill mx-2"
         data-bs-toggle="popover" data-bs-placement="{msg.sender.id % 2 === 0 ? 'right' : 'left'}"
-        data-bs-custom-class="custom-popover"
+        data-bs-custom-class="msg-{msg.id} fs-5"
         data-bs-title="SentimentAnalyzerBot"
         data-bs-content="Processing..."
         bind:this={popoverEl}>
