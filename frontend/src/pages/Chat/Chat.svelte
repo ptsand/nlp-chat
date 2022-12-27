@@ -5,7 +5,7 @@
     import io from "socket.io-client";
     import { validTokens } from "../../utils/tokenUtil";
     import { onMount } from 'svelte';
-    import SentimentPopover from "../../components/SentimentPopover/SentimentPopover.svelte";
+    import ChatMsg from "../../components/ChatMsg/ChatMsg.svelte";
 
     const location = useLocation();
     
@@ -123,7 +123,7 @@
                 <div class=".small mb-1 mx-1">
                     { msg.sender.username }
                 </div>
-                <SentimentPopover {msg} />
+                <ChatMsg {msg} />
             </div>
         {/each}
     </div>

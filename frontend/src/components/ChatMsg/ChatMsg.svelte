@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import predictSentiment from '../../utils/model.js';
+    import predictSentiment from "../../utils/model.js";
 
     export let msg;
     let popover;
