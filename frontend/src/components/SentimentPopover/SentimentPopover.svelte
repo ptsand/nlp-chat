@@ -29,16 +29,16 @@
         processed = true;   // do not trigger prediction on setContent
         msg.sentimentClass = s.category.toLowerCase(); // choose colors based on sentiment
         popover.setContent({
-            '.popover-header': 'SentimentAnalyzerBot',
+            '.popover-header': 'SentimentBot',
             '.popover-body': `${s.category} (confidence: ${s.confidence})`
         });
     }
 </script>
 
-<button type="button" class="btn btn-{msg.color} rounded-pill mx-2"
+<button type="button" class="btn btn-{msg.color} rounded"
         data-bs-toggle="popover" data-bs-placement="{msg.sender.id % 2 === 0 ? 'right' : 'left'}"
         data-bs-custom-class="msg-{msg.id} fs-5"
-        data-bs-title="SentimentAnalyzerBot"
+        data-bs-title="SentimentBot"
         data-bs-content="Processing..."
         bind:this={popoverEl}>
         { msg.content }

@@ -8,13 +8,24 @@
     const location = useLocation();
     onMount(()=>$activeRoute=$location.pathname);
 </script>
-
+<svelte:head>
+  <link rel="icon" type="image/svg+xml" href="/user.svg" />
+	<title>Profile</title>
+</svelte:head>
 <div use:registerFocus class="bg-dark text-white p-2 d-flex flex-column flex-grow-1 justify-content-center px-md-5">
-    <h2 class="mx-auto pb-3">Your profile</h2>
+    <h2 class="mx-auto pb-3">
+      <svg class="feather sw-4">
+        <use href="/feather-sprite.svg#user"/>
+      </svg>
+      profile
+    </h2>
         {#await makeReq("/users/me")}
-            <p>Fetching your information...</p>
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         {:then details}
-        <table class="table table-dark table-hover text-center">
+        <div class="table-wrapper rounded mx-auto">
+          <table class="table table-dark table-borderless table-hover mb-0">
             <tbody>
               <tr>
                 <th scope="row">Username</th>
@@ -30,7 +41,19 @@
               </tr>
             </tbody>
           </table>
+        </div>
         {:catch err}
             {err}
         {/await}
 </div>
+
+<style>
+
+  table {
+    min-width: 500px;
+    --bs-table-bg: var(--bs-black);
+  }
+  .table-wrapper {
+    overflow: hidden;
+  }
+</style>

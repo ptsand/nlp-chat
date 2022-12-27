@@ -12,6 +12,10 @@
     onMount(()=>$activeRoute=$location.pathname);
     
 </script>
+<svelte:head>
+    <link rel="icon" type="image/svg+xml" href="/home.svg" />
+	<title>Home</title>
+</svelte:head>
 <div use:registerFocus class="bg-dark w-100 text-white p-2 d-flex flex-column flex-grow-1">
     <h2 class="m-auto">Welcome {$user.username}</h2>
 </div>

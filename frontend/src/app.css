@@ -17,3 +17,16 @@
   --bs-popover-bg: var(--bs-danger);
   --bs-popover-body-color: var(--bs-white)
 }
+
+.feather {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+}
+.sw-4 {
+  stroke-width: 3;
+}

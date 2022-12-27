@@ -1,8 +1,8 @@
 const argMax = (array) => array.map((x, i) => [x, i]).reduce((r, a) => (a[0] > r[0] ? a : r))[1];
 const seqLen = 60; // input message will be truncated/padded to this length (number of words)
 
-const vocabulary = () => fetch("http://localhost:8080/tfjs-model/vocab.json").then(res=>res.json());
-const model = await tf.loadLayersModel("http://localhost:8080/tfjs-model/./model.json");
+const vocabulary = () => fetch("/tfjs-model/vocab.json").then(res=>res.json());
+const model = await tf.loadLayersModel("/tfjs-model/./model.json");
 
 const vectorize = (strArray, vocab) => {
     let text = strArray.map(str => str.toLowerCase());

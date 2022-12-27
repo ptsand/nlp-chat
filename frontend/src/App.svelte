@@ -9,6 +9,9 @@
   import ConfirmEmail from "./pages/Profile/ConfirmEmail.svelte";
   import Chat from "./pages/Chat/Chat.svelte";
   import makeReq from "./utils/fetchWrapper";
+  import { onMount } from "svelte";
+
+  onMount(()=>feather.replace());
 
   const logoutHandler = async () => {
     // blacklist refresh token until expiry
@@ -22,12 +25,10 @@
       navigate('/');
     }
   }
-
-  $: console.log($activeRoute);
 </script>
 
 <Router>
-  <nav class="navbar navbar-expand-md bg-dark navbar-dark mb-2">
+  <nav class="navbar navbar-expand bg-dark navbar-dark mb-2">
     <div class="container-fluid">
       <Link class="navbar-brand" to="/">NLP Chat</Link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,21 +37,21 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <Link class="nav-link{$activeRoute === '/' ? ' active' : ''}" to="/">Home</Link>
+            <Link class="nav-link{$activeRoute === '/' ? ' active' : ''}" to="/"><i data-feather="home"></i></Link>
           </li>
           {#if !$user}
           <li class="nav-item">
-            <Link class="nav-link{$activeRoute === '/register' ? ' active' : ''}" to="/register">Register</Link>
+            <Link class="nav-link{$activeRoute === '/register' ? ' active' : ''}" to="/register"><i data-feather="user-plus"></i></Link>
           </li>
           {:else}
           <li class="nav-item">
-            <Link class="nav-link{$activeRoute === '/profile' ? ' active' : ''}" to="/profile">Profile</Link>
+            <Link class="nav-link{$activeRoute === '/chat' ? ' active' : ''}" to="/chat"><i data-feather="message-circle"></i></Link>
           </li>
           <li class="nav-item">
-            <Link class="nav-link{$activeRoute === '/chat' ? ' active' : ''}" to="/chat">Chat</Link>
+            <Link class="nav-link{$activeRoute === '/profile' ? ' active' : ''}" to="/profile"><i data-feather="user"></i></Link>
           </li>
           <li class="nav-item">
-            <button class="nav-link btn btn-link border border-0" on:click="{logoutHandler}">Logout</button>
+            <button class="nav-link btn btn-link border border-0" on:click="{logoutHandler}"><i data-feather="log-out"></i></button>
           </li>
           {/if}
         </ul>
@@ -78,3 +79,13 @@
     </PrivateRoute>
   </main>
 </Router>
+
+<footer class="mt-2">
+  <div class="bg-dark text-white p-3 text-center">
+          Powered by <a href="https://expressjs.com">Express</a>,
+          <a href="https://nodejs.org">NodeJS</a>,
+          <a href="https://svelte.dev">Svelte</a> and
+          <a href="https://www.tensorflow.org/js">TensorFlow.js</a>
+
+  </div>
+</footer>

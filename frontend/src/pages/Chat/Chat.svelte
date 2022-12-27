@@ -12,11 +12,12 @@
     export let registerFocus;
     let message;
     let messages = [];
-    let chatUsers = [{id: 0, username: "SentimentAnalyzerBot", self: false}];
+    let chatUsers = [{id: 0, username: "SentimentBot", self: false}];
     const myUserID = $user.id;
 
     onMount(()=>{
         $activeRoute=$location.pathname;
+        feather.replace();
         messages = msgWrap({
             id: 0,
             sender: chatUsers[0],
@@ -99,10 +100,14 @@
         message = ""; // clear input text field
     }
 </script>
+<svelte:head>
+    <link rel="icon" type="image/svg+xml" href="/message-circle.svg" />
+	<title>Chat</title>
+</svelte:head>
 <div class="row gx-2 flex-nowrap flex-grow-1">
-<div class="col-lg-4 col-xl-3 d-none d-lg-block">
+<div class="d-none d-lg-block col-lg-3">
 <div class="bg-dark text-white h-100 p-2">
-    <h3 class="text-center mb-3">Users</h3>
+    <h3 class="text-center mb-3"><i data-feather="users"></i></h3>
     <div>
     {#each chatUsers as user}
         <div class="text-center text-success fw-bold">{ user.username }</div>
@@ -110,13 +115,15 @@
     </div>
 </div>
 </div>
-<div class="col-lg-8, col-xl-9">
-<div class="bg-dark text-white p-2 d-flex flex-column px-md-5 h-100">
+<div class="col-lg-9">
+<div class="bg-dark text-white p-3 d-flex flex-column px-xl-5 h-100">
     <h3 class="text-center mb-3">Chat lounge</h3>
     <div class="flex-grow-1">
         {#each messages as msg}
             <div class="mb-3 text-{msg.sender.id % 2 === 0 ? 'start' : 'end'}">
-                <div class="fs-6 mb-2">{ msg.sender.username }</div>
+                <div class=".small mb-1 mx-1">
+                    { msg.sender.username }
+                </div>
                 <SentimentPopover {msg} />
             </div>
         {/each}
@@ -124,7 +131,7 @@
     <div class="d-flex input-group">
         <input use:registerFocus bind:value={message} on:keydown="{e=>e.keyCode === 13 && sendMessage()}"
         type="text" class="form-control bg-light border-0" placeholder="Enter message" aria-label="Enter message">
-        <button class="btn btn-success" type="button" on:click={sendMessage}>Send</button>
+        <button class="btn btn-success" type="button" on:click={sendMessage}><i data-feather="send"></i></button>
     </div>
 </div>
 </div>
