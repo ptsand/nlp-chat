@@ -17,7 +17,6 @@
 
     onMount(()=>{
         $activeRoute=$location.pathname;
-        feather.replace();
         messages = msgWrap({
             id: 0,
             sender: chatUsers[0],
@@ -91,7 +90,7 @@
     }
     
     onDestroy(() => {
-        socket.disconnect(); // delete from users array in backend
+        socket.disconnect(); // -->delete from users array in backend
         socket.off("connect_error");
     });
     
@@ -131,7 +130,11 @@
     <div class="d-flex input-group">
         <input use:registerFocus bind:value={message} on:keydown="{e=>e.keyCode === 13 && sendMessage()}"
         type="text" class="form-control bg-light border-0" placeholder="Enter message" aria-label="Enter message">
-        <button class="btn btn-success" type="button" on:click={sendMessage}><i data-feather="send"></i></button>
+        <button class="btn btn-success" type="button" on:click={sendMessage}>
+            <svg class="feather">
+              <use href="/feather-sprite.svg#send" />
+            </svg>
+        </button>
     </div>
 </div>
 </div>
