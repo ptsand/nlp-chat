@@ -1,4 +1,5 @@
 <script>
+  // Move to components
   import { Router, Link, Route, navigate } from "svelte-navigator";
   import PrivateRoute from "./components/PrivateRoute/PrivateRoute.svelte";
   import Home from "./pages/Home/Home.svelte";

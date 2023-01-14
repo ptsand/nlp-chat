@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import Toast from "bootstrap/js/dist/toast.js";
 
     export let title;
     export let message;
@@ -9,7 +10,7 @@
     // TODO: setInterval to update time on toasts
     onMount(()=>{
         const toastLiveExample = document.getElementById('liveToast');
-        const toast = new bootstrap.Toast(toastLiveExample);
+        const toast = new Toast(toastLiveExample);
         toast.show()
         setInterval(()=>seconds++,1000)
     });

@@ -18,7 +18,7 @@ router.get(`${req_base}/me`, authenticate, async (req, res) => {
     delete user.password;   // don't send password hash to client
     res.send(user);
 });
-
+// TODO: move to auth router
 router.get(`${req_base}/confirm-email/:code`, authenticate, async (req, res) => {
     const trueCode = await db.confirmationCode(req.user.id);
     if (req.params.code === trueCode) {

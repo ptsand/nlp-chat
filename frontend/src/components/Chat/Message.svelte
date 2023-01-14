@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import predictSentiment from "../../utils/model.js";
+    import Popover from "bootstrap/js/dist/popover.js";
 
     export let msg;
     let popover;
@@ -9,7 +10,7 @@
 
     onMount(()=>{
         if (popoverEl) {
-            popover = new bootstrap.Popover(popoverEl);
+            popover = new Popover(popoverEl);
             popoverEl.addEventListener('show.bs.popover', () =>
                 !processed && predictSentiment([msg.content]).then(s=>sentiment(s))
             );

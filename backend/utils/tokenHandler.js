@@ -1,3 +1,5 @@
+// TODO: move to middleware folder
+
 import jwt from 'jsonwebtoken';
 const { createHash } = await import('node:crypto');
 

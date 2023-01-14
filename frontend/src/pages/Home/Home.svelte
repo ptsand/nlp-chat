@@ -1,6 +1,5 @@
 <script>
     import { user } from '../../store/globals.js';
-    import jwtDecode from 'jwt-decode';
     import Toast from "../../components/Toast/Toast.svelte";
     import { useLocation } from 'svelte-navigator';
     import  { activeRoute } from '../../store/globals.js'

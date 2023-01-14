@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import {render, screen} from '@testing-library/svelte';
 import { vi } from 'vitest';
-import ChatMsg from '../components/ChatMsg/ChatMsg.svelte';
+import ChatMsg from '../components/Chat/Message.svelte';
 
 // mock language model
 vi.mock('../utils/model.js', () => {

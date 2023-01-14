@@ -9,7 +9,7 @@ const transporter = ()=>{
     } else {
         _transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT || 25,
+            port: process.env.SMTP_PORT,
             auth: {
               user: process.env.SMTP_USER,
               pass: process.env.SMTP_PASS
@@ -18,7 +18,7 @@ const transporter = ()=>{
         return _transporter;
     }
 };
-
+// TODO: do it more generic
 export const sendConfirmationMail = (to, code)=>{
     const mail = {
         from: "authbot@localhost",
