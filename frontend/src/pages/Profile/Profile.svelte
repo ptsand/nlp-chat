@@ -1,17 +1,16 @@
 <script>
-    import { user, activeRoute } from '../../store/globals.js';
+    import { activeRoute } from '../../store/globals.js';
     import { useLocation } from 'svelte-navigator';
     import { onMount } from 'svelte';
     import makeReq from '../../utils/fetchWrapper.js';
+    import Head from '../../components/Head/Head.svelte';
     export let registerFocus;
 
     const location = useLocation();
     onMount(()=>$activeRoute=$location.pathname);
 </script>
-<svelte:head>
-  <link rel="icon" type="image/svg+xml" href="/user.svg" />
-	<title>Profile</title>
-</svelte:head>
+
+<Head icon="user" title="Profile" />
 <div use:registerFocus class="bg-dark text-white p-2 d-flex flex-column flex-grow-1 justify-content-center px-md-5">
     <h2 class="mx-auto pb-3">
       <svg class="feather sw-4">

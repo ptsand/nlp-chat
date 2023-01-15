@@ -8,6 +8,7 @@
     import Users from "../../components/Chat/Users.svelte";
     import Messages from "../../components/Chat/Messages.svelte";
     import Input from "../../components/Chat/Input.svelte";
+    import Head from "../../components/Head/Head.svelte";
 
     export let registerFocus;
     const location = useLocation();
@@ -46,10 +47,7 @@
 
 </script>
 
-<svelte:head>
-    <link rel="icon" type="image/svg+xml" href="/message-circle.svg" />
-    <title>Chat</title>
-</svelte:head>
+<Head icon="message-circle" title="Chat" />
 <div class="row gx-2 flex-nowrap flex-grow-1">
     <Users {chatUsers} {socket}/>
     <div class="col-lg-9">

@@ -6,6 +6,7 @@
     import { onMount } from 'svelte';
     import makeReq from '../../utils/fetchWrapper.js';
     import jwtDecode from 'jwt-decode';
+    import Head from '../../components/Head/Head.svelte';
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -48,6 +49,7 @@
     }
 </script>
 
+<Head icon="user" title="Login" />
 <div class="d-flex w-100 place-center flex-grow-1">
     <Sveltik {initialValues} {validate} {onSubmit} let:isSubmitting>
         <Form class="bg-dark px-4 py-2 mx-auto text-center" style="min-width: 30vw;">

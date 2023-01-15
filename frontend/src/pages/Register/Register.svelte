@@ -5,6 +5,7 @@
     import { onMount } from 'svelte';
     import makeReq from '../../utils/fetchWrapper.js';
     import { activeRoute } from '../../store/globals.js';
+    import Head from '../../components/Head/Head.svelte';
 
     const location = useLocation();
 	const registerFocus = useFocus();
@@ -45,6 +46,7 @@
     }
 </script>
 
+<Head icon="user" title="Register" />
 <div class="d-flex w-100 place-center flex-grow-1">
     <Sveltik {initialValues} {validate} {onSubmit} let:isSubmitting>
         <Form class="bg-dark px-4 py-2 mx-auto text-center" style="min-width: 30vw;">
