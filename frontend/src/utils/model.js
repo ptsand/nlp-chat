@@ -7,8 +7,11 @@ const argMax = (array) =>
          .reduce((max, curVal) => (curVal[0] > max[0] ? curVal : max))[1];
 
 const seqLen = 60; // input message will be truncated/padded to this length (number of words)
-const vocabulary = () => fetch("/tfjs-model/vocab.json").then(res=>res.json());
-const model = await tf.loadLayersModel("/tfjs-model/model.json");
+// load model and vocab immediately
+let vocabulary; // (toplevel await not broadly supported yet)
+fetch("/tfjs-model/vocab.json").then(res=>res.json()).then((vocab=>vocabulary=vocab));
+let model;
+tf.loadLayersModel("/tfjs-model/model.json").then((m=>model = m));
 
 const vectorize = (strArray, vocab) => {
     let text = strArray.map(str => str.toLowerCase());
@@ -32,9 +35,8 @@ const vectorize = (strArray, vocab) => {
 }
 
 const predict = async (text) => {
-    const vocab = await vocabulary();
     const predictions = tf.tidy(() => {
-      const tokens = vectorize(text, vocab);
+      const tokens = vectorize(text, vocabulary);
       const predictions = model.predict(tf.tensor2d(tokens, [tokens.length, seqLen]));
       return predictions;
     });
