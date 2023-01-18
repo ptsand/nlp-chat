@@ -46,7 +46,7 @@ router.post(`${req_base}/login`, async (req, res) => {
         secure: true,       // (localhost is allowed in plaintext though)
         maxAge: 3600*24*7   // 7 days
     });
-    console.log("sending tokens and fingerprint cookie to authenticated client...");
+    
     res.json(tokens);
 });
 

@@ -1,20 +1,14 @@
 import nodemailer from "nodemailer";
+import { smtp_conf } from "../config/smtp_config.js";
 
 let _transporter;
 
-// lazy load transporter, use env vars
+// lazy load transporter
 const transporter = ()=>{
     if (_transporter) {
         return _transporter;
     } else {
-        _transporter = nodemailer.createTransport({
-            host: process.env.SMTP_HOST,
-            port: process.env.SMTP_PORT,
-            auth: {
-              user: process.env.SMTP_USER,
-              pass: process.env.SMTP_PASS
-            }
-        });
+        _transporter = nodemailer.createTransport(smtp_conf);
         return _transporter;
     }
 };

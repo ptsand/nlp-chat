@@ -12,11 +12,6 @@ export const setupConnectionPooling = () => {
     }
     return db;
 }
-// lazy load db
-const getDb = ()=>{
-    if (!db) db = setupConnectionPooling();
-    return db;
-}
 
 export const userByUsername = async (username) => {
     if (!username) return false;

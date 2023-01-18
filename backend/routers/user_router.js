@@ -35,7 +35,7 @@ router.get(`${req_base}/confirm-email/:code`, authenticate, async (req, res) => 
 router.post(req_base, async (req, res) => {
     // TODO: validation
     const confirmationCode = randomBytes(10).toString("hex");
-    const user = { ...req.body, role: roles[0], confirmationCode};  // set role, code
+    const user = { ...req.body, role: 'user', confirmationCode};  // set role, code
     try {
         await db.saveUser(user);
         sendConfirmationMail(user.email, confirmationCode);
