@@ -8,13 +8,13 @@ import {
 } from '../middleware/jwt_auth.js';
 import * as argon2 from "argon2";
 const { randomBytes } = await import('node:crypto');
-import db from '../database/db_wrapper.js';
+import * as db from '../database/db_wrapper.js';
 
 const router = Router();
 const req_base = "/api/auth";
 
 router.post(`${req_base}/refresh`, (req, res) => {
-    updateAccessToken(req, res);
+    res.send({ token: updateAccessToken(req, res) });
 });
 
 router.post(`${req_base}/logout`, (req, res) => {
@@ -39,8 +39,7 @@ router.post(`${req_base}/login`, async (req, res) => {
     const { id, role, email_confirmed } = user;
     const claims = { id, username, role, email_confirmed, hash: sha256(fingerprint) };
     const tokens = { access: accessToken(claims), refresh: refreshToken(claims) };
-    // TODO: use blacklist?
-    // refreshTokens.push(tokens.refresh);
+
     res.cookie('__Secure_Fgp', fingerprint, { 
         httpOnly: true,     // prevent clientside js to read cookie
         sameSite: 'strict', // works with chrome on localhost, safari needs a real domain

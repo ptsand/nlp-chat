@@ -4,7 +4,7 @@
   "description": "nlp-chat backend",
   "main": "app.js",
   "scripts": {
-    "init-db": "node ./database/init-db.js",
+    "init:db": "node ./database/init_db.js",
     "dev": "nodemon app.js",
     "test": "echo 'no tests implemented yet'"
   },

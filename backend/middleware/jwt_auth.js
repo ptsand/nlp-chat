@@ -25,7 +25,7 @@ const updateAccessToken = (req, res)=> {
     delete user.exp;
     token = accessToken(user);
     console.log("just issued new access token");
-    res.send({ token });
+    return token;
   });
 }
 

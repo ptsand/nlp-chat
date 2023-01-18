@@ -2,9 +2,9 @@ import mysql from "mysql2";
 import * as argon2 from "argon2";
 import { dbPoolConf } from "../config/db_config.js";
 
-let db; // to be set when environment is loaded, TODO: lazy load as singleton
+let db;
 
-const setupConnectionPooling = () => {
+export const setupConnectionPooling = () => {
     try {
         db = mysql.createPool(dbPoolConf).promise();
     } catch (err) {
@@ -12,39 +12,54 @@ const setupConnectionPooling = () => {
     }
     return db;
 }
+// lazy load db
+const getDb = ()=>{
+    if (!db) db = setupConnectionPooling();
+    return db;
+}
 
-const userByUsername = async (username) => {
+export const userByUsername = async (username) => {
     if (!username) return false;
-    const [[user]] = await db.query('SELECT * FROM users WHERE username = ?;', [username]);
+    const [[user]] = await db.query(
+        'SELECT * FROM users inner join roles on users.role_id=roles.id WHERE username = ?;',
+        [username]);
     return user;
 }
 
-const users = async () => {
-    const [users] = await db.query('SELECT * FROM users;');
+export const users = async () => {
+    const [users] = await db.query('SELECT * FROM users inner join roles on users.role_id=roles.id;');
     return users;
 }
 
-const saveUser = async (user) => {
+export const saveRole = async (name)=>await db.query(
+    'INSERT INTO roles (name) VALUES (?);',
+    [name]
+);
+
+export const roleIdByName = async (name) => {
+    const [[role]] = await db.query('SELECT id FROM roles where name = ?;', [name]);
+    return role.id;
+}
+
+export const saveUser = async (user) => {
     user.password = await argon2.hash(user.password); // argon2 recommended by owasp
     // ref: https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html#argon2id
     const { username, password, email, role, confirmationCode } = user;
-    return db.query(
-        'INSERT INTO users (username, password, email, role) VALUES (?, ?, ?, ?);',
-        [username, password, email, role]
+    return roleIdByName(role).then((roleId)=>db.query(
+        'INSERT INTO users (username, password, email, role_id) VALUES (?, ?, ?, ?);',
+        [username, password, email, roleId])
     ).then((res)=>db.query('INSERT INTO confirmation_codes (user_id, code) VALUES (?, ?);', 
         [res[0].insertId, confirmationCode]));
 }
 
-const confirmEmail = async (userID) => {
+export const confirmEmail = async (userID) => {
     return await Promise.all([
         db.query('UPDATE users SET email_confirmed = 1 WHERE id = ?;', [userID]),
         db.query('DELETE FROM confirmation_codes WHERE user_id = ?;', [userID])
     ]);
 }
 
-const confirmationCode = async (userID) => {
+export const confirmationCode = async (userID) => {
     const [[row]] = await db.query('SELECT code FROM confirmation_codes WHERE user_id = ?;', [userID]);
     return row?.code;
 }
-
-export default { setupConnectionPooling, userByUsername, users, saveUser, confirmEmail, confirmationCode }

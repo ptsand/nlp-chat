@@ -1,18 +1,16 @@
 import { Router } from "express";
 import { authenticate } from "../middleware/jwt_auth.js";
-import db from "../database/db_wrapper.js";
+import * as db from "../database/db_wrapper.js";
 import { sendConfirmationMail } from "../utils/mailer.js";
 const { randomBytes } = await import('node:crypto');
 
 const router = Router();
 
-export const roles = ['user', 'admin']; // TODO: use a table in db
-
 const req_base = "/api/users";
 
-// protected endpoint (admins only) TODO: fix
+// protected endpoint (admins only)
 router.get(req_base, authenticate, (req, res) => {
-    if (req.user.role === roles[1]) return res.send(db.users());
+    if (req.user.role === 'admin') return res.send(db.users());
     res.sendStatus(403);
 });
 
@@ -24,7 +22,7 @@ router.get(`${req_base}/me`, authenticate, async (req, res) => {
     delete user.password;   // don't send password hash to client
     res.send(user);
 });
-// TODO: move to auth router
+
 router.get(`${req_base}/confirm-email/:code`, authenticate, async (req, res) => {
     const trueCode = await db.confirmationCode(req.user.id);
     if (req.params.code === trueCode) {

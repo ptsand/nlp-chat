@@ -1,5 +1,5 @@
 import express from "express";
-import db from "./database/db_wrapper.js";
+import * as db from "./database/db_wrapper.js";
 import { Server } from "socket.io";
 import http from "http";
 import { HOST, PORT, corsOptions } from "./config/app_config.js";
