@@ -1,17 +1,12 @@
 import mysql from "mysql2";
 import * as argon2 from "argon2";
+import { dbPoolConf } from "../config/db_config.js";
 
-let db; // to be set when environment is loaded
+let db; // to be set when environment is loaded, TODO: lazy load as singleton
 
 const setupConnectionPooling = () => {
     try {
-        db = mysql.createPool({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME,
-            //debug: true
-        }).promise();
+        db = mysql.createPool(dbPoolConf).promise();
     } catch (err) {
         console.log("Error creating db connection pool:", err.message);
     }

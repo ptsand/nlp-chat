@@ -1,6 +1,6 @@
 console.log("running standalone script to clear, setup and seed the db...");
 
-import dbWrap from "./dbWrapper.js";
+import dbWrap from "./db_wrapper.js";
 import * as dotenv from 'dotenv';
 dotenv.config({ path: ".env.dev" });    // load .env file
 const { randomBytes } = await import('node:crypto');

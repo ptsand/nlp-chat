@@ -1,14 +1,20 @@
 import { Router } from "express";
-import { authenticate } from "../utils/tokenHandler.js";
-import db from "../database/dbWrapper.js";
+import { authenticate } from "../middleware/jwt_auth.js";
+import db from "../database/db_wrapper.js";
 import { sendConfirmationMail } from "../utils/mailer.js";
 const { randomBytes } = await import('node:crypto');
 
 const router = Router();
 
-export const roles = ['user', 'admin']; // set as enum in db
+export const roles = ['user', 'admin']; // TODO: use a table in db
 
 const req_base = "/api/users";
+
+// protected endpoint (admins only) TODO: fix
+router.get(req_base, authenticate, (req, res) => {
+    if (req.user.role === roles[1]) return res.send(db.users());
+    res.sendStatus(403);
+});
 
 // let authenticated user retrieve user data not in token
 router.get(`${req_base}/me`, authenticate, async (req, res) => {
@@ -39,12 +45,6 @@ router.post(req_base, async (req, res) => {
     } catch (err) {
         res.status(409).send({ message: err.message });
     }
-});
-
-// protected endpoint (admins only) TODO: fix
-router.get(req_base, authenticate, (req, res) => {
-    if (req.user.role === roles[1]) return res.send(db.users());
-    res.sendStatus(403);
 });
 
 export default router;

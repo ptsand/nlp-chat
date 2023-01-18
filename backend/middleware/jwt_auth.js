@@ -1,5 +1,8 @@
-// TODO: move to middleware folder
-
+import { ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRY,
+  REFRESH_TOKEN_EXPIRY
+} from '../config/auth_config.js';
 import jwt from 'jsonwebtoken';
 const { createHash } = await import('node:crypto');
 
@@ -7,8 +10,8 @@ let refreshTokensBlacklist = [];
 
 const sha256 = value => createHash("sha3-256").update(value, "utf8").digest("hex");
 
-const accessToken = payload => jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '5s' });
-const refreshToken = payload => jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
+const accessToken = payload => jwt.sign(payload, ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_EXPIRY });
+const refreshToken = payload => jwt.sign(payload, REFRESH_TOKEN_SECRET, { expiresIn: REFRESH_TOKEN_EXPIRY });
 
 const updateAccessToken = (req, res)=> {
   let { token } = req.body;

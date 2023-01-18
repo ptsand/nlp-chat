@@ -5,10 +5,10 @@ import {
     refreshToken, 
     updateAccessToken,
     blacklistRefreshToken
-} from '../utils/tokenHandler.js';
+} from '../middleware/jwt_auth.js';
 import * as argon2 from "argon2";
 const { randomBytes } = await import('node:crypto');
-import db from '../database/dbWrapper.js';
+import db from '../database/db_wrapper.js';
 
 const router = Router();
 const req_base = "/api/auth";
