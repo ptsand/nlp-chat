@@ -38,7 +38,6 @@
             const tokens = await makeReq("/auth/login", "post", userCreds);
             const { id, username, role, email_confirmed } = jwtDecode(tokens.access);
             $user = { id, username, role, tokens, email_confirmed };
-            console.log("userStore:", $user);
             setSubmitting(false);
             const from = ($location.state && $location.state.from) || "/";
 		    navigate(from, { replace: true });

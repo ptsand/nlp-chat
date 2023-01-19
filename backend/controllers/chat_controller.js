@@ -8,7 +8,6 @@ export const respond = (socket, io) => {
     for (let [id, socket] of io.of("/").sockets) {
         let user = socket.request.user;
         if (users.filter(u=>u.id===user.id).length < 1) {
-            console.log("added user with id", user);
             users.push({
                 id: user.id,
                 username: user.username,
@@ -27,7 +26,6 @@ export const respond = (socket, io) => {
     socket.on("disconnect", async () => {
         // remove disconnected user
         users = users.filter(u => u.id !== user.id);
-        console.log("disconnect, users left:", users);
         // notify other clients
         socket.broadcast.emit("user disconnected", user.username);
     });
