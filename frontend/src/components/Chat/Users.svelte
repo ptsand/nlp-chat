@@ -1,42 +1,5 @@
 <script>
-    import { user } from "../../store/globals";
-
     export let chatUsers;
-    export let socket;
-
-    const myUserID = $user.id;
-
-    socket.on("users", (users) => {
-        users.forEach((user) => {
-            user.self = user.id === myUserID;
-        });
-        // put the current user first, and then sort by username
-        chatUsers = [
-            ...chatUsers,
-            ...users.sort((a, b) => {
-                if (a.self) return -1;
-                if (b.self) return 1;
-                if (a.username < b.username) return -1;
-                return a.username > b.username ? 1 : 0;
-            }),
-        ];
-    });
-    //
-    socket.on("user connected", (user) => {
-        messages = msgWrap({
-            sender: { id: 0, username: "system" },
-            content: `${user.username} has joined`,
-        });
-        chatUsers = [...chatUsers, user];
-    });
-    // when any user disconnects
-    socket.on("user disconnected", (username) => {
-        messages = msgWrap({
-            sender: { id: 0, username: "system" },
-            content: `${username} has left`,
-        });
-        chatUsers = chatUsers.filter((u) => u.userID !== user.userID);
-    });
 </script>
 
 <div class="d-none d-lg-block col-lg-3">

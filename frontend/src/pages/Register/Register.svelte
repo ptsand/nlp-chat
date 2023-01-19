@@ -49,7 +49,7 @@
 <Head icon="user" title="Register" />
 <div class="d-flex w-100 place-center flex-grow-1">
     <Sveltik {initialValues} {validate} {onSubmit} let:isSubmitting>
-        <Form class="bg-dark px-4 py-2 mx-auto text-center" style="min-width: 30vw;">
+        <Form class="bg-dark px-4 py-2 mx-auto text-center" style="min-width: 50vw;">
             <h3 class="mb-3 text-white">Register</h3>
             <div class="form-floating mb-3">
                 <Field class="form-control" id="username" type="text" name="username" />

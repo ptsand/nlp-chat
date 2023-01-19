@@ -16,7 +16,7 @@ export const setupConnectionPooling = () => {
 export const userByUsername = async (username) => {
     if (!username) return false;
     const [[user]] = await db.query(
-        'SELECT username, password, email, name as role, enabled, email_confirmed FROM users inner join roles on users.role_id=roles.id WHERE username = ?;',
+        'SELECT users.id as id, username, password, email, name as role, enabled, email_confirmed FROM users inner join roles on users.role_id=roles.id WHERE username = ?;',
         [username]);
     return user;
 }
